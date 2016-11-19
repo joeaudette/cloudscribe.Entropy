@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "1.0.0-rc20161119",
   "description": "A simple contact form for ASP.NET Core",
   "authors": [ "Joe Audette" ],
   "packOptions": {
@@ -19,8 +19,11 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
+    "Microsoft.Extensions.Options": "1.0.0",
     "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
     "Microsoft.Extensions.Localization.Abstractions": "1.0.0",
+    "Microsoft.Extensions.FileProviders.Embedded": "1.0.*",
+    "Microsoft.AspNetCore.Mvc.Razor": "1.0.1",
     "Microsoft.AspNetCore.Mvc": "1.0.*",
     "cloudscribe.Web.Common": "1.0.0-*",
     "cloudscribe.Messaging.Email": "1.0.0-*"

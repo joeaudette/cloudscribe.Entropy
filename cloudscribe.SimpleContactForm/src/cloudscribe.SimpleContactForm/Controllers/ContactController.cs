@@ -72,7 +72,8 @@ namespace cloudscribe.SimpleContactForm.Controllers
                 }
             }
 
-            var result = await formService.ProcessMessage(model);
+            var ipAddress = ""; //TODO:
+            var result = await formService.ProcessMessage(model, ipAddress);
             if(result.Succeeded)
             {
                 return View("Success");

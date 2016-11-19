@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -19,11 +22,25 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddCloudscribeSimpleContactForm(this IServiceCollection services)
         {
-            services.TryAddScoped<IFormIdProvider, DefaultFormIdProvider>();
+            
             services.AddScoped<ContactFormService, ContactFormService>();
+            services.AddScoped<IProcessMessages, SmtpMessageProcessor>();
+            services.AddScoped<IContactFormResolver, ConfigContactFormResolver>();
+
+            
 
 
             return services;
+        }
+
+        public static RazorViewEngineOptions AddEmbeddedViewsForCloudscribeSimpleContactForm(this RazorViewEngineOptions options)
+        {
+            options.FileProviders.Add(new EmbeddedFileProvider(
+                    typeof(ContactFormService).GetTypeInfo().Assembly,
+                    "cloudscribe.SimpleContactForm"
+                ));
+
+            return options;
         }
     }
 }

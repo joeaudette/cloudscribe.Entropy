@@ -5,17 +5,15 @@
 // Last Modified:			2016-11-19
 // 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace cloudscribe.SimpleContactForm.Models
 {
     public class ContactForm
     {
         public string Id { get; set; } = "default";
-        public string RecipientCsv { get; set; } = string.Empty;
+        public string NotificationEmailCsv { get; set; } = string.Empty;
+
+        public string NotificationSubject { get; set; } = "Contact Form Submission";
 
         public bool CopySubmitterEmailOnSubmission { get; set; } = false;
     }

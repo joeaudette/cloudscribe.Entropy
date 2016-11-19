@@ -254,3 +254,4 @@ paket-files/
 **/dp_keys/**
 **/nodb_storage/**
 **/wwwroot/lib*
+**/appsettings.dev.json

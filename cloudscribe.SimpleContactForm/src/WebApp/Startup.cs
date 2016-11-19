@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
 using cloudscribe.Messaging.Email;
 using cloudscribe.Web.Common.Models;
+using cloudscribe.Web.Common.Components;
 
 namespace WebApp
 {
@@ -26,7 +27,7 @@ namespace WebApp
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("appsettings.local.overrides.json", optional: true)
+                .AddJsonFile("appsettings.dev.json", optional: true)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -64,6 +65,9 @@ namespace WebApp
 
             services.Configure<SmtpOptions>(Configuration.GetSection("SmtpOptions"));
             services.Configure<RecaptchaKeys>(Configuration.GetSection("RecaptchaKeys"));
+            services.AddScoped<ISmtpOptionsProvider, ConfigSmtpOptionsProvider>();
+            services.AddScoped<IRecaptchaKeysProvider, ConfigRecaptchaKeysProvider>();
+            services.AddCloudscribeSimpleContactForm();
 
             services.AddLocalization(options => options.ResourcesPath = "GlobalResources");
 

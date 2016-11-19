@@ -8,6 +8,7 @@
 using cloudscribe.SimpleContactForm.Models;
 using cloudscribe.SimpleContactForm.ViewModels;
 using cloudscribe.Web.Common.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +19,32 @@ namespace cloudscribe.SimpleContactForm.Components
     public class ContactFormService
     {
         public ContactFormService(
-            IFormIdProvider formIdProvider,
-            IRecaptchaKeysProvider recaptchaKeysProvider
+            IEnumerable<IProcessMessages> messageProcessors,
+            IContactFormResolver contactFormResolver,
+            IRecaptchaKeysProvider recaptchaKeysProvider,
+            ILogger<ContactFormService> logger
             )
         {
-            this.formIdProvider = formIdProvider;
+            this.contactFormResolver = contactFormResolver;
             recaptchaKeys = recaptchaKeysProvider;
+            this.messageProcessors = messageProcessors;
+            log = logger;
         }
 
-        private IFormIdProvider formIdProvider;
+        private IContactFormResolver contactFormResolver;
         private IRecaptchaKeysProvider recaptchaKeys;
+        private ContactForm form = null;
+        private IEnumerable<IProcessMessages> messageProcessors;
+        private ILogger log;
 
         public async Task<string> GetFormId()
         {
-            return await formIdProvider.GetFormId().ConfigureAwait(false);
+            if(form == null)
+            {
+                form = await contactFormResolver.GetCurrentContactForm();
+            }
+
+            return form.Id;
         }
 
         public async Task<RecaptchaKeys> GetRecaptchaKeys()
@@ -39,12 +52,30 @@ namespace cloudscribe.SimpleContactForm.Components
             return await recaptchaKeys.GetKeys().ConfigureAwait(false);
         }
 
-        public Task<MessageResult> ProcessMessage(MessageViewModel model)
+        public async Task<MessageResult> ProcessMessage(MessageViewModel model, string ipAddress)
         {
-            var result = MessageResult.Success;
-            // TODO: implement
+            var message = new ContactFormMessage();
+            message.FormId = model.FormId;
+            message.Email = model.Email;
+            message.Name = model.Name;
+            message.Message = model.Message;
+            message.IpAddress = ipAddress;
 
-            return Task.FromResult(result);
+            foreach(var processor in messageProcessors)
+            {
+                try
+                {
+                    await processor.Process(message);
+                }
+                catch(Exception ex)
+                {
+                    log.LogError("error processing contact form message", ex);
+                }
+            }
+
+            var result = MessageResult.Success;
+
+            return result;
         }
     }
 }
