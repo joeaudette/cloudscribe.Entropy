@@ -1,6 +1,6 @@
 # Custom Registration fields work in progress
 
-One of my client projects needs custom registration fields. The goal here is to make something re-useable and configurable so that per tenant there can be custom registration fields.
+One of my client projects needs custom registration fields. The goal here is to make something reusable and configurable so that per tenant there can be custom registration fields.
 
 The planned solution will be as follows:
 
@@ -14,7 +14,7 @@ The planned solution will be as follows:
 
 5. We may need a custom controller and views for viewing or updating the custom data after registration
 
-The plan is for the custom key/value storage and the custom IHandleCustomRegistration to be re-useable.
+The plan is for the custom key/value storage and the custom IHandleCustomRegistration to be reusable.
 
 The secondary work for viewing the captured data may be per project customization depending on what we come up with.
 
