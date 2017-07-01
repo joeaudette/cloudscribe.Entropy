@@ -6,7 +6,7 @@ The planned solution will be as follows:
 
 1. Take advantage of the ability to add custom views per theme to make a custom Register.cshtml per tenant in the tenant theme folder. This will enable adding the custom inputs right in the view.
 
-2. a custom implementation of IHandleCustomRegistration will process the additional form fields
+2. a custom implementation of [IHandleCustomRegistration](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomRegistration.cs) will process the additional form fields
 
 3. it will be possible to define the needed custom fields per tenant in appsettings.json
 
