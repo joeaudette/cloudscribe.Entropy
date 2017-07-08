@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cloudscribe.Kvp.Models
 {
-    public class DataItem : IDataItem
+    public class KvpItem : IKvpItem
     {
         public string Id { get; set; }
         public string SetId { get; set; }

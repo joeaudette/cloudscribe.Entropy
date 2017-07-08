@@ -2,7 +2,7 @@
 
 namespace cloudscribe.Kvp.Models
 {
-    public interface IDataItem
+    public interface IKvpItem
     {
         string Id { get; set; }
         string SetId { get; set; }

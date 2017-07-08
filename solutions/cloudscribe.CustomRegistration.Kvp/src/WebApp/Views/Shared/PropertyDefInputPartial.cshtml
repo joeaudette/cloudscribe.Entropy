@@ -1,0 +1,16 @@
+﻿@model cloudscribe.UserProperties.Models.UserPropertyDefinition
+@using cloudscribe.UserProperties.Models
+@using cloudscribe.UserProperties
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<UserPropertyResources> sr
+@addTagHelper "*, cloudscribe.UserProperties"
+@{
+}
+<div class="form-group">
+    <label for="@Model.Key" class="col-md-2 control-label">@sr[Model.Label]</label>
+    <div class="col-md-10">
+        <input id="@Model.Key" name="@Model.Key" value="@ViewData[Model.Key]" class="form-control" cs-user-property="@Model" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="@Model.Key" data-valmsg-replace="true"></span>
+        @Html.ValidationMessage(Model.Key +"Error", new { @class = "text-danger" })
+    </div>
+</div>

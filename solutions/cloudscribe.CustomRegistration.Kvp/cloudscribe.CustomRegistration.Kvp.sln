@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E59452A1-F662-4583-8D8E-96F333AB4265}"
 EndProject
@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "src\WebApp\WebApp.csproj", "{C83D4D4D-DC99-478F-B3B6-72D954C3EF15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloudscribe.Kvp.Models", "cloudscribe.Kvp.Models\cloudscribe.Kvp.Models.csproj", "{6495D3F6-E6B3-43C6-8506-896096E38ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.Kvp.Models", "src\cloudscribe.Kvp.Models\cloudscribe.Kvp.Models.csproj", "{6495D3F6-E6B3-43C6-8506-896096E38ABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloudscribe.Kvp.Storage.NoDb", "cloudscribe.Kvp.Storage.NoDb\cloudscribe.Kvp.Storage.NoDb.csproj", "{46086531-1D25-4A49-A42B-0758FBB3370E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.Kvp.Storage.NoDb", "src\cloudscribe.Kvp.Storage.NoDb\cloudscribe.Kvp.Storage.NoDb.csproj", "{46086531-1D25-4A49-A42B-0758FBB3370E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloudscribe.UserProfile.Kvp.Web", "cloudscribe.UserProfile.Kvp.Web\cloudscribe.UserProfile.Kvp.Web.csproj", "{2C759173-0EBF-43E5-B56A-C0983F68FCCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.UserProfile.Kvp.Web.Mvc", "src\cloudscribe.UserProfile.Kvp.Web.Mvc\cloudscribe.UserProfile.Kvp.Web.Mvc.csproj", "{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloudscribe.UserProfile.Kvp.Web.Mvc", "cloudscribe.UserProfile.Kvp.Web.Mvc\cloudscribe.UserProfile.Kvp.Web.Mvc.csproj", "{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloudscribe.UserProperties", "cloudscribe.UserProperties\cloudscribe.UserProperties.csproj", "{54876747-8023-43A5-A2EE-DD63D35F8D4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +35,14 @@ Global
 		{46086531-1D25-4A49-A42B-0758FBB3370E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46086531-1D25-4A49-A42B-0758FBB3370E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46086531-1D25-4A49-A42B-0758FBB3370E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C759173-0EBF-43E5-B56A-C0983F68FCCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C759173-0EBF-43E5-B56A-C0983F68FCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C759173-0EBF-43E5-B56A-C0983F68FCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C759173-0EBF-43E5-B56A-C0983F68FCCA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54876747-8023-43A5-A2EE-DD63D35F8D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54876747-8023-43A5-A2EE-DD63D35F8D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54876747-8023-43A5-A2EE-DD63D35F8D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54876747-8023-43A5-A2EE-DD63D35F8D4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,7 +51,7 @@ Global
 		{C83D4D4D-DC99-478F-B3B6-72D954C3EF15} = {E59452A1-F662-4583-8D8E-96F333AB4265}
 		{6495D3F6-E6B3-43C6-8506-896096E38ABE} = {E59452A1-F662-4583-8D8E-96F333AB4265}
 		{46086531-1D25-4A49-A42B-0758FBB3370E} = {E59452A1-F662-4583-8D8E-96F333AB4265}
-		{2C759173-0EBF-43E5-B56A-C0983F68FCCA} = {E59452A1-F662-4583-8D8E-96F333AB4265}
 		{DC1736F6-CFC1-4712-8E75-BAFC1D45CDE0} = {E59452A1-F662-4583-8D8E-96F333AB4265}
+		{54876747-8023-43A5-A2EE-DD63D35F8D4E} = {E59452A1-F662-4583-8D8E-96F333AB4265}
 	EndGlobalSection
 EndGlobal
