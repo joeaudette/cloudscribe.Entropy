@@ -9,29 +9,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using cloudscribe.Web.Common.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cloudscribe.UserProperties.Models
 {
-    public class UserPropertyDefinition
+    public class UserPropertyDefinition : FormItemDefinition
     {
         public UserPropertyDefinition()
         {
             Options = new List<SelectListItem>();
         }
 
-        public string Key { get; set; }
-
-        public string Label { get; set; }
-
-        public string Tooltip { get; set; }
-
-        public string DefaultValue { get; set; }
-        
-        public string EditPartialViewName { get; set; } = "PropertyDefInputPartial";
-
-        public string CssClass { get; set; }
 
         public bool VisibleOnRegistration { get; set; }
         
@@ -43,15 +33,6 @@ namespace cloudscribe.UserProperties.Models
 
         public bool EditableByUserOnProfile { get; set; } = true;
 
-        public int MaxLength { get; set; } = -1;
-
-        public bool Required { get; set; }
-
-        public string RequiredErrorMessage { get; set; }
-
-        public string RegexValidationExpression { get; set; }
-        public string RegexErrorMessage { get; set; }
-
-        public List<SelectListItem> Options { get; set; } = null;
+        
     }
 }
