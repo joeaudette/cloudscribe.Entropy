@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace cloudscribe.UserProfile.Kvp.Web.Mvc
+namespace cloudscribe.UserProperties.Web.Kvp
 {
     public class Class1
     {

@@ -4,11 +4,5 @@
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<CloudscribeCommonResources> sr
 @addTagHelper "*, cloudscribe.Web.Common"
-@{
-}
-<div class="form-group">
-    <label for="@Model.Key" class="col-md-2 control-label">@sr[Model.Label]</label>
-    <div class="col-md-10">
-        <span class="form-control">@ViewData[Model.Key]</span>
-    </div>
-</div>
+<input id="@Model.Key" name="@Model.Key" value="@ViewData[Model.Key]" type="hidden"  />
+           
