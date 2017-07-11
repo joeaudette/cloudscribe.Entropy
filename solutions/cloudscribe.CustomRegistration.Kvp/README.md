@@ -8,7 +8,7 @@ One of my client projects needs custom registration fields. The goal here is to 
 
 2. The captured custom data is stored in a generic key value data store that could also be reused for other purposes.
 
-3. There is also a way to add per tenant custom form fields automatically to views based on the config file without having to manually manage all the form elements in the views. We could also if needed make custom views per tenant if because of the ability to add custom views per tenant already provided in cloudscribe Core. 
+3. You can add custom form fields automatically to views based on the config file without having to manually manage all the form elements in the views. We could also if needed make custom views per tenant because of the ability to add custom views per tenant already provided in cloudscribe Core. 
 
 4. Custom implementations of [IHandleCustomRegistration](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomRegistration.cs), [IHandleCustomUserInfo](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomUserInfo.cs), and [IHandleCustomUserInfoAdmin](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomUserInfoAdmin.cs) will process the additional form fields
 
