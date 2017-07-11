@@ -36,6 +36,23 @@ namespace cloudscribe.Kvp.Models
         public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
         public DateTime ModifiedUtc { get; set; } = DateTime.UtcNow;
 
+        public static KvpItem FromIKvpItem(IKvpItem i)
+        {
+            var k = new KvpItem();
+            k.CreatedUtc = i.CreatedUtc;
+            k.Custom1 = i.Custom1;
+            k.Custom2 = i.Custom2;
+            k.FeatureId = i.FeatureId;
+            k.Id = i.Id;
+            k.Key = i.Key;
+            k.ModifiedUtc = i.ModifiedUtc;
+            k.SetId = i.SetId;
+            k.SubSetId = i.SubSetId;
+            k.Value = i.Value;
+
+            return k;
+        }
+
 
     }
 }

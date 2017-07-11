@@ -8,9 +8,9 @@
 @using cloudscribe.UserProperties
 @using cloudscribe.Web.Common.Models
 @inject IStringLocalizer<UserPropertyResources> sr
-@inject TenantProfileOptionsResolver customPropsResolver
+@inject IProfileOptionsResolver customPropsResolver
 @{ 
-    var props = customPropsResolver.GetProfileProps();
+    var props = await customPropsResolver.GetProfileProps();
 }
 @foreach(var p in props.Properties)
 {

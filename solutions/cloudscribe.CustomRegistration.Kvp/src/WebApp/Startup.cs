@@ -64,6 +64,9 @@ namespace WebApp
 
             services.AddOptions();
 
+            services.AddCloudscribeKvpNoDbStorage();
+            services.AddCloudscribeKvpUserProperties();
+
             services.AddCloudscribeCoreNoDbStorage();
             services.AddCloudscribeLoggingNoDbStorage(Configuration);
             services.AddCloudscribeLogging();

@@ -1,4 +1,6 @@
-﻿using cloudscribe.UserProperties.Models;
+﻿using cloudscribe.Core.Web.ExtensionPoints;
+using cloudscribe.Kvp.Models;
+using cloudscribe.UserProperties.Models;
 using cloudscribe.UserProperties.Services;
 using cloudscribe.UserProperties.Web.Kvp;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +14,12 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddScoped<IUserPropertyService, UserPropertyService>();
             services.TryAddScoped<IUserPropertyValidator, UserPropertyValidator>();
-            services.TryAddScoped<TenantProfileOptionsResolver>();
+            services.TryAddScoped<IProfileOptionsResolver, TenantProfileOptionsResolver>();
+            services.TryAddScoped<IKvpStorageService, KvpStorageService>();
+
+            services.TryAddScoped<IHandleCustomRegistration, KvpRegistrationHandler>();
+            services.TryAddScoped<IHandleCustomUserInfo, KvpUserInfoHandler>();
+            services.TryAddScoped<IHandleCustomUserInfoAdmin, KvpUserInfoAdminHandler>();
 
 
             return services;

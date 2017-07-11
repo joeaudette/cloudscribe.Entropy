@@ -5,6 +5,8 @@
 // Last Modified:			2017-07-10
 //
 
+using cloudscribe.Core.Identity;
+using cloudscribe.Core.Models;
 using cloudscribe.Kvp.Models;
 using cloudscribe.UserProperties.Models;
 using System;
@@ -17,36 +19,79 @@ namespace cloudscribe.UserProperties.Web.Kvp
     public class UserPropertyService : IUserPropertyService
     {
         public UserPropertyService(
+            SiteUserManager<SiteUser> userManager,
             IKvpStorageService kvpStorage
             )
         {
+            _userManager = userManager;
             _kvpStorage = kvpStorage;
         }
 
+        private SiteUserManager<SiteUser> _userManager;
         private IKvpStorageService _kvpStorage;
 
-        //public async Task<UserProperty> FetchByKey(string siteId, string userId, string key)
-        //{
-        //    var kvp = await _kvpStorage.FetchByKey(
-        //        siteId, //projectid
-        //        key,
-        //        "*", // featureId
-        //        siteId, // setId
-        //        userId //subSetId
-        //        ).ConfigureAwait(false);
+        public async Task<SiteUser> GetUser(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
 
-        //    if (kvp == null) return null;
+        public bool IsNativeUserProperty(string key)
+        {
+            switch(key)
+            {
+                case "FirstName":
+                case "LastName":
+                case "DateOfBirth":
+                case "AuthorBio":
+                case "Signature":
+                case "Gender":
+                case "AvatarUrl":
+                case "WebSiteUrl":
 
-        //    var prop = new UserProperty();
-        //    prop.CreatedUtc = kvp.CreatedUtc;
-        //    prop.Key = kvp.Key;
-        //    prop.ModifiedUtc = kvp.ModifiedUtc;
-        //    prop.SiteId = kvp.SetId;
-        //    prop.UserId = kvp.SubSetId;
-        //    prop.Value = kvp.Value;
+                    return true;
+            }
+            return false;
+        }
 
-        //    return prop;
-        //}
+        public async Task UpdateNativeUserProperty(SiteUser siteUser, string key, string value)
+        {
+            switch (key)
+            {
+                case "FirstName":
+                    siteUser.FirstName = value;
+                    break;
+                case "LastName":
+                    siteUser.LastName = value;
+                    break;
+                case "DateOfBirth":
+                    DateTime dob;
+                    var dobParsed = DateTime.TryParse(value, out dob);
+                    if (!dobParsed)
+                    {
+                        siteUser.DateOfBirth = dob.Date;
+                    }
+
+                    break;
+                case "AuthorBio":
+                    siteUser.AuthorBio = value;
+                    break;
+                case "Signature":
+                    siteUser.Signature = value;
+                    break;
+                case "Gender":
+                    siteUser.Gender = value;
+                    break;
+                case "AvatarUrl":
+                    siteUser.AvatarUrl = value;
+                    break;
+                case "WebSiteUrl":
+                    siteUser.WebSiteUrl = value;
+                    break;
+
+
+            }
+            await _userManager.UpdateAsync(siteUser);
+        }
 
         public async Task<List<UserProperty>> FetchByUser(string siteId, string userId)
         {
@@ -111,5 +156,28 @@ namespace cloudscribe.UserProperties.Web.Kvp
                     foundKvp).ConfigureAwait(false);
             }
         }
+
+        //public async Task<UserProperty> FetchByKey(string siteId, string userId, string key)
+        //{
+        //    var kvp = await _kvpStorage.FetchByKey(
+        //        siteId, //projectid
+        //        key,
+        //        "*", // featureId
+        //        siteId, // setId
+        //        userId //subSetId
+        //        ).ConfigureAwait(false);
+
+        //    if (kvp == null) return null;
+
+        //    var prop = new UserProperty();
+        //    prop.CreatedUtc = kvp.CreatedUtc;
+        //    prop.Key = kvp.Key;
+        //    prop.ModifiedUtc = kvp.ModifiedUtc;
+        //    prop.SiteId = kvp.SetId;
+        //    prop.UserId = kvp.SubSetId;
+        //    prop.Value = kvp.Value;
+
+        //    return prop;
+        //}
     }
 }

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:					Joe Audette
 // Created:					2017-07-10
-// Last Modified:			2017-07-10
+// Last Modified:			2017-07-11
 // 
 
 using cloudscribe.Core.Identity;
@@ -10,11 +10,11 @@ using cloudscribe.Core.Models;
 using cloudscribe.Core.Web.ExtensionPoints;
 using cloudscribe.Core.Web.ViewModels.Account;
 using cloudscribe.UserProperties.Models;
-using cloudscribe.UserProperties.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,33 +23,37 @@ namespace cloudscribe.UserProperties.Web.Kvp
     public class KvpRegistrationHandler : IHandleCustomRegistration
     {
         public KvpRegistrationHandler(
-            SiteUserManager<SiteUser> userManager,
-            TenantProfileOptionsResolver customPropsResolver,
-            UserPropertyService userPropertyService,
+            IProfileOptionsResolver customPropsResolver,
+            IUserPropertyService userPropertyService,
             IUserPropertyValidator userPropertyValidator,
             ILogger<KvpRegistrationHandler> logger
             )
         {
-            _userManager = userManager;
             _customPropsResolver = customPropsResolver;
             _log = logger;
-            _props = _customPropsResolver.GetProfileProps();
             _userPropertyValidator = userPropertyValidator;
         }
 
-        protected SiteUserManager<SiteUser> _userManager;
-        protected TenantProfileOptionsResolver _customPropsResolver;
+        protected IProfileOptionsResolver _customPropsResolver;
         protected ILogger _log;
-        protected UserPropertySet _props;
-        protected UserPropertyService _userPropertyService;
+        protected UserPropertySet _props = null;
+        protected IUserPropertyService _userPropertyService;
         protected IUserPropertyValidator _userPropertyValidator;
-        
+
+        private async Task EnsureProps()
+        {
+            if (_props == null)
+            {
+                _props = await _customPropsResolver.GetProfileProps();
+            }
+        }
+
         public virtual Task<string> GetRegisterViewName(ISiteContext site, HttpContext httpContext)
         {
             return Task.FromResult("Register"); // this is just returning the default view name.
         }
 
-        public virtual Task HandleRegisterGet(
+        public virtual async Task HandleRegisterGet(
             ISiteContext site,
             RegisterViewModel viewModel,
             HttpContext httpContext,
@@ -57,9 +61,10 @@ namespace cloudscribe.UserProperties.Web.Kvp
             CancellationToken cancellationToken = default(CancellationToken)
             )
         {
+            await EnsureProps();
             // if any configured properties have default values add them to viewData
             // to pass them to the view
-            foreach(var p in _props.Properties)
+            foreach (var p in _props.Properties)
             {
                 if(p.VisibleOnRegistration)
                 {
@@ -70,10 +75,10 @@ namespace cloudscribe.UserProperties.Web.Kvp
                 }
             }
             
-            return Task.FromResult(0);
+            
         }
 
-        public virtual Task<bool> HandleRegisterValidation(
+        public virtual async Task<bool> HandleRegisterValidation(
             ISiteContext site,
             RegisterViewModel viewModel,
             HttpContext httpContext,
@@ -82,7 +87,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
             CancellationToken cancellationToken = default(CancellationToken)
             )
         {
-           
+            await EnsureProps();
             var result = true;
 
             foreach (var p in _props.Properties)
@@ -103,7 +108,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
                 }
             }
             
-            return Task.FromResult(result);
+            return result;
         }
 
         public virtual async Task HandleRegisterPostSuccess(
@@ -114,22 +119,36 @@ namespace cloudscribe.UserProperties.Web.Kvp
             CancellationToken cancellationToken = default(CancellationToken)
             )
         {
+            await EnsureProps();
             // we "could" re-validate here but
             // the method above gets called just before this in the same postback
             // so we know there were no validation errors or this method would not be invoked
+            SiteUser siteUser = null;
+            if(HasAnyNativeProps(_props.Properties))
+            {
+                siteUser = await _userPropertyService.GetUser(loginResult.User.Id.ToString());
+            }
             if (loginResult.User != null)
             {
                 foreach (var p in _props.Properties)
                 {
                     if (p.VisibleOnRegistration)
                     {
+
                         var postedValue = httpContext.Request.Form[p.Key];
-                        // persist to kvp storage
-                        await _userPropertyService.CreateOrUpdate(
-                            site.Id.ToString(),
-                            loginResult.User.Id.ToString(),
-                            p.Key,
-                            postedValue);
+                        if(_userPropertyService.IsNativeUserProperty(p.Key))
+                        {
+                            await _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
+                        }
+                        else
+                        {
+                            // persist to kvp storage
+                            await _userPropertyService.CreateOrUpdate(
+                                site.Id.ToString(),
+                                loginResult.User.Id.ToString(),
+                                p.Key,
+                                postedValue);
+                        }  
                     }
                 }
             }
@@ -139,6 +158,16 @@ namespace cloudscribe.UserProperties.Web.Kvp
             }
 
            
+        }
+
+        private bool HasAnyNativeProps(List<UserPropertyDefinition> props)
+        {
+            foreach (var p in props)
+            {
+                if(_userPropertyService.IsNativeUserProperty(p.Key)) { return true; }
+            }
+
+            return false;
         }
 
 

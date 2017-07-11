@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:					Joe Audette
 // Created:					2017-07-08
-// Last Modified:			2017-07-08
+// Last Modified:			2017-07-11
 // 
 
 using cloudscribe.Core.Models;
@@ -11,10 +11,11 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace cloudscribe.UserProperties.Services
 {
-    public class TenantProfileOptionsResolver
+    public class TenantProfileOptionsResolver : IProfileOptionsResolver
     {
         public TenantProfileOptionsResolver(
             SiteContext currentSite,
@@ -28,14 +29,15 @@ namespace cloudscribe.UserProperties.Services
         private SiteContext currentSite;
         private ProfilePropertySetContainer container;
 
-        public UserPropertySet GetProfileProps()
+        public Task<UserPropertySet> GetProfileProps()
         {
             foreach(var s in container.PropertySets)
             {
-                if(s.TenantId == currentSite.Id.ToString()) { return s; }
+                if(s.TenantId == currentSite.Id.ToString()) { return Task.FromResult(s); }
             }
 
-            return new UserPropertySet();
+            var result = new UserPropertySet();
+            return Task.FromResult(result);
         }
     }
 }
