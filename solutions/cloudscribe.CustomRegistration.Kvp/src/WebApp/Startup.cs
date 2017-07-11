@@ -13,6 +13,8 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
+using cloudscribe.UserProperties.Models;
+using cloudscribe.UserProperties.Services;
 
 namespace WebApp
 {
@@ -50,12 +52,20 @@ namespace WebApp
             });
 
             services.AddMemoryCache();
-            
+
             //services.AddSession();
+
+            services.Configure<ProfilePropertySetContainer>(Configuration.GetSection("ProfilePropertySetContainer"));
+            services.AddScoped<TenantProfileOptionsResolver>();
+
+
 
             ConfigureAuthPolicy(services);
 
             services.AddOptions();
+
+            services.AddCloudscribeKvpNoDbStorage();
+            services.AddCloudscribeKvpUserProperties();
 
             services.AddCloudscribeCoreNoDbStorage();
             services.AddCloudscribeLoggingNoDbStorage(Configuration);

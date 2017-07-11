@@ -13,7 +13,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
     <Content Remove="nodb_storage\**\*" CopyToPublishDirectory="Never" />
-    <Content Include="nodb_storage\**\*" CopyToPublishDirectory="Never" />
+   
 
     <Content Remove="wwwroot\lib\**\*" CopyToPublishDirectory="Never" />
     <Content Remove="bower.json" CopyToPublishDirectory="Never" />
@@ -61,6 +61,13 @@
   <ItemGroup>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.*" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.*" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\cloudscribe.Kvp.Storage.NoDb\cloudscribe.Kvp.Storage.NoDb.csproj" />
+    <ProjectReference Include="..\cloudscribe.UserProperties.Web.Kvp\cloudscribe.UserProperties.Web.Kvp.csproj" />
+    <ProjectReference Include="..\cloudscribe.UserProperties\cloudscribe.UserProperties.csproj" />
   </ItemGroup>
 
 
