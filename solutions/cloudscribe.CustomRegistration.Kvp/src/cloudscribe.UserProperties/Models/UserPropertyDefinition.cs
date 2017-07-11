@@ -25,14 +25,14 @@ namespace cloudscribe.UserProperties.Models
 
         public bool VisibleOnRegistration { get; set; }
         
-        public string OnlyAvailableForRoles { get; set; }
-
-        public string OnlyVisibleForRoles { get; set; }
-
         public bool VisibleToUserOnProfile { get; set; } = true;
 
         public bool EditableByUserOnProfile { get; set; } = true;
 
-        
+        public bool VisibleOnAdminUserEdit { get; set; } = true;
+
+        public bool EditableOnAdminUserEdit { get; set; } = true;
+
+
     }
 }

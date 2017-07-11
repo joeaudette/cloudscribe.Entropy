@@ -53,6 +53,48 @@ namespace cloudscribe.UserProperties.Web.Kvp
             return false;
         }
 
+        public bool HasAnyNativeProps(List<UserPropertyDefinition> props)
+        {
+            foreach (var p in props)
+            {
+                if (IsNativeUserProperty(p.Key)) { return true; }
+            }
+
+            return false;
+        }
+
+        public string GetNativeUserProperty(SiteUser siteUser, string key)
+        {
+            switch (key)
+            {
+                case "FirstName":
+                    return siteUser.FirstName;
+                   
+                case "LastName":
+                    return siteUser.LastName;
+                case "DateOfBirth":
+                    if(siteUser.DateOfBirth.HasValue)
+                    {
+                        return siteUser.DateOfBirth.Value.ToString("d");
+                    }
+                    return null;
+                     
+                case "AuthorBio":
+                    return siteUser.AuthorBio;
+                case "Signature":
+                    return siteUser.Signature;
+                case "Gender":
+                    return siteUser.Gender;
+                case "AvatarUrl":
+                    return siteUser.AvatarUrl;
+                case "WebSiteUrl":
+                    return siteUser.WebSiteUrl;
+
+
+            }
+            return null;
+        }
+
         public async Task UpdateNativeUserProperty(SiteUser siteUser, string key, string value)
         {
             switch (key)
@@ -125,7 +167,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
             if (string.IsNullOrWhiteSpace(siteId)) throw new ArgumentException("siteid must be provided");
             if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentException("userId must be provided");
             if (string.IsNullOrWhiteSpace(key)) throw new ArgumentException("key must be provided");
-            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("value must be provided");
+            //if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("value must be provided");
 
             var kvpList = await _kvpStorage.FetchById(
                 siteId, //projectId
@@ -153,7 +195,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
 
                 await _kvpStorage.Create(
                     siteId,
-                    foundKvp).ConfigureAwait(false);
+                    kvp).ConfigureAwait(false);
             }
         }
 

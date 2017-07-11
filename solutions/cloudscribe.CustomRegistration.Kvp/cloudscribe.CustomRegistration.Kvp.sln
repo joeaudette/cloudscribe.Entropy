@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.Kvp.Storage.NoD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.UserProperties", "src\cloudscribe.UserProperties\cloudscribe.UserProperties.csproj", "{54876747-8023-43A5-A2EE-DD63D35F8D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloudscribe.UserProperties.Web.Kvp", "src\cloudscribe.UserProperties.Web.Kvp\cloudscribe.UserProperties.Web.Kvp.csproj", "{47E9EF2E-A2A4-4E09-893C-E9B89AF3F5CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cloudscribe.UserProperties.Web.Kvp", "src\cloudscribe.UserProperties.Web.Kvp\cloudscribe.UserProperties.Web.Kvp.csproj", "{47E9EF2E-A2A4-4E09-893C-E9B89AF3F5CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -31,6 +31,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
             _customPropsResolver = customPropsResolver;
             _log = logger;
             _userPropertyValidator = userPropertyValidator;
+            _userPropertyService = userPropertyService;
         }
 
         protected IProfileOptionsResolver _customPropsResolver;
@@ -65,14 +66,30 @@ namespace cloudscribe.UserProperties.Web.Kvp
             await EnsureProps();
             // add user props to viewData to pass them to the view
             var userProps = await _userPropertyService.FetchByUser(site.Id.ToString(), viewModel.UserId.ToString());
+            SiteUser siteUser = null;
+            if (_userPropertyService.HasAnyNativeProps(_props.Properties))
+            {
+                siteUser = await _userPropertyService.GetUser(viewModel.UserId.ToString());
+            }
 
             foreach (var p in _props.Properties)
             {   
-                var found = userProps.Where(x => x.Key == p.Key).FirstOrDefault();
-                if (found != null)
+                if(p.EditableOnAdminUserEdit)
                 {
-                    viewData[p.Key] = found.Value;
-                }              
+                    if (_userPropertyService.IsNativeUserProperty(p.Key))
+                    {
+                        viewData[p.Key] = _userPropertyService.GetNativeUserProperty(siteUser, p.Key);
+                    }
+                    else
+                    {
+                        var found = userProps.Where(x => x.Key == p.Key).FirstOrDefault();
+                        if (found != null)
+                        {
+                            viewData[p.Key] = found.Value;
+                        }
+                    }
+                }
+                           
             }
         }
 
@@ -89,17 +106,21 @@ namespace cloudscribe.UserProperties.Web.Kvp
             var result = true;
 
             foreach (var p in _props.Properties)
-            {   
-                var postedValue = httpContext.Request.Form[p.Key];
-                if (_userPropertyValidator.IsValid(p, postedValue, modelState))
+            {
+                if (p.EditableOnAdminUserEdit)
                 {
-                    // if valid keep the field populated in case some other model validation failed and the form is re-displayed
-                    viewData[p.Key] = postedValue;
+                    var postedValue = httpContext.Request.Form[p.Key];
+                    if (_userPropertyValidator.IsValid(p, postedValue, modelState))
+                    {
+                        // if valid keep the field populated in case some other model validation failed and the form is re-displayed
+                        viewData[p.Key] = postedValue;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
-                else
-                {
-                    result = false;
-                }    
+                
             }
 
             return result;

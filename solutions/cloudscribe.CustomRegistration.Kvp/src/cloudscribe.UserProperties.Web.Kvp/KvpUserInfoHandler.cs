@@ -31,6 +31,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
             _customPropsResolver = customPropsResolver;
             _log = logger;
             _userPropertyValidator = userPropertyValidator;
+            _userPropertyService = userPropertyService;
         }
 
         protected IProfileOptionsResolver _customPropsResolver;
@@ -72,11 +73,19 @@ namespace cloudscribe.UserProperties.Web.Kvp
             {
                 if (p.VisibleToUserOnProfile)
                 {
-                    var found = userProps.Where(x => x.Key == p.Key).FirstOrDefault();
-                    if (found != null)
+                    if(_userPropertyService.IsNativeUserProperty(p.Key))
                     {
-                        viewData[p.Key] = found.Value;
+                        viewData[p.Key] = _userPropertyService.GetNativeUserProperty(siteUser, p.Key);
                     }
+                    else
+                    {
+                        var found = userProps.Where(x => x.Key == p.Key).FirstOrDefault();
+                        if (found != null)
+                        {
+                            viewData[p.Key] = found.Value;
+                        }
+                    }
+                    
                 }
             }  
         }

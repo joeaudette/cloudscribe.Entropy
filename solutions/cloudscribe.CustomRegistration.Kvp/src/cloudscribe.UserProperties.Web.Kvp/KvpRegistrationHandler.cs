@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,6 +31,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
             _customPropsResolver = customPropsResolver;
             _log = logger;
             _userPropertyValidator = userPropertyValidator;
+            _userPropertyService = userPropertyService;
         }
 
         protected IProfileOptionsResolver _customPropsResolver;
@@ -124,7 +124,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
             // the method above gets called just before this in the same postback
             // so we know there were no validation errors or this method would not be invoked
             SiteUser siteUser = null;
-            if(HasAnyNativeProps(_props.Properties))
+            if(_userPropertyService.HasAnyNativeProps(_props.Properties))
             {
                 siteUser = await _userPropertyService.GetUser(loginResult.User.Id.ToString());
             }
@@ -160,15 +160,7 @@ namespace cloudscribe.UserProperties.Web.Kvp
            
         }
 
-        private bool HasAnyNativeProps(List<UserPropertyDefinition> props)
-        {
-            foreach (var p in props)
-            {
-                if(_userPropertyService.IsNativeUserProperty(p.Key)) { return true; }
-            }
-
-            return false;
-        }
+        
 
 
     }
