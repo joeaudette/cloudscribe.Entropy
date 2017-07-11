@@ -4,7 +4,7 @@ One of my client projects needs custom registration fields. The goal here is to 
 
 ### The solution provides the following
 
-1. It is possible to define the needed custom fields per tenant in [appsettings.json](https://github.com/joeaudette/cloudscribe.Entropy/blob/master/solutions/cloudscribe.CustomRegistration.Kvp/src/WebApp/appsettings.json) - a configuration based way to define custom fields per tenant for the registration page, manage user info page, and admin user edit pages so that the captured custom data can be viewed and optionally editable. It supports validation requirements per field currently supporting input, select, textarea, datepicker, and dateofbirthpicker, and read only label views. You can define custom views per property or choose from the ones already included. 
+1. A configuration ([appsettings.json](https://github.com/joeaudette/cloudscribe.Entropy/blob/master/solutions/cloudscribe.CustomRegistration.Kvp/src/WebApp/appsettings.json)) based way to define custom fields per tenant for the registration page, manage user info page, and admin user edit pages so that the captured custom data can be viewed and optionally editable. It supports validation requirements per field currently supporting input, select, textarea, datepicker, and dateofbirthpicker, and read only label views. You can define custom views per property or choose from the ones already included. 
 
 2. The captured custom data is stored in a generic key value data store that could also be reused for other purposes.
 
