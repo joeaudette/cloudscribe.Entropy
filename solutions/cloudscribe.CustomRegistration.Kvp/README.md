@@ -4,19 +4,15 @@ One of my client projects needs custom registration fields. The goal here is to 
 
 The planned solution will be as follows:
 
-1. Take advantage of the ability to add custom views per theme to make a custom Register.cshtml per tenant in the tenant theme folder. This will enable adding the custom inputs right in the view.
+1. It will be possible to define the needed custom fields per tenant in appsettings.json - there will be a configuration based way to define custom fields per tenant for the registration page, manage user info page, and admin user edit pages so that the captured custom data can be viewed and optionally editable.
 
-2. a custom implementation of [IHandleCustomRegistration](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomRegistration.cs) will process the additional form fields
+2. The captured custom data will be stored in a generic key value data store that could also be reused for other purposes.
 
-3. it will be possible to define the needed custom fields per tenant in appsettings.json
+3. We could make custom views per tenant if needed because of the ability to add custom views per tenant already provided in cloudscribe Core. There will also be a way to add per tenant custom form fields automatically based on the config file without having to manually manage all the form elements in the views.
 
-4. The captured custom data will be stored in a generic key value data store 
+4. Custom implementations of [IHandleCustomRegistration](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomRegistration.cs), [IHandleCustomUserInfo](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomUserInfo.cs), and [IHandleCustomUserInfoAdmin](https://github.com/joeaudette/cloudscribe/blob/master/src/cloudscribe.Core.Web/ExtensionPoints/IHandleCustomUserInfoAdmin.cs) will process the additional form fields
 
-5. We may need a custom controller and views for viewing or updating the custom data after registration
 
-The plan is for the custom key/value storage and the custom IHandleCustomRegistration to be reusable.
-
-The secondary work for viewing the captured data may be per project customization depending on what we come up with.
 
 [![Join the chat at https://gitter.im/joeaudette/cloudscribe](https://badges.gitter.im/joeaudette/cloudscribe.svg)](https://gitter.im/joeaudette/cloudscribe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
