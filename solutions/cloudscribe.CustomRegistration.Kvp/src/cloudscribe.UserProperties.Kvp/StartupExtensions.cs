@@ -2,7 +2,7 @@
 using cloudscribe.Kvp.Models;
 using cloudscribe.UserProperties.Models;
 using cloudscribe.UserProperties.Services;
-using cloudscribe.UserProperties.Web.Kvp;
+using cloudscribe.UserProperties.Kvp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

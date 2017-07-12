@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace cloudscribe.UserProperties.Web.Kvp
+namespace cloudscribe.UserProperties.Kvp
 {
     public class UserPropertyService : IUserPropertyService
     {

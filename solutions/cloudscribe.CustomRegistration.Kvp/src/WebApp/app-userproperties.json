@@ -1,0 +1,154 @@
+﻿{
+
+  "ProfilePropertySetContainer": {
+    "PropertySets": [
+      {
+        "TenantId": "2bf9bd2b-3016-40b9-b9ce-d2546086342c",
+        "Properties": [
+          {
+            "Key": "FirstName",
+            "Label": "First Name",
+            "EditPartialViewName": "FormItemInputPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "firstname",
+            "IconCssClass": "glyphicon glyphicon-user",
+            "IconOnLeft": "true",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "false",
+            "EditableByUserOnProfile": "false",
+            "VisibleOnAdminUserEdit": "false",
+            "EditableOnAdminUserEdit": "false",
+            "MaxLength": "100",
+            "MaxLengthErrorMessage": "First Name has a max length of 100 characters",
+            "Required": "true",
+            "RequiredErrorMessage": "First Name is required",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": []
+          },
+          {
+            "Key": "LastName",
+            "Label": "Last Name",
+            "EditPartialViewName": "FormItemInputPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "lastname",
+            "IconCssClass": "glyphicon glyphicon-user",
+            "IconOnLeft": "true",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "false",
+            "EditableByUserOnProfile": "false",
+            "VisibleOnAdminUserEdit": "false",
+            "EditableOnAdminUserEdit": "false",
+            "MaxLength": "100",
+            "MaxLengthErrorMessage": "Last Name has a max length of 100 characters",
+            "Required": "true",
+            "RequiredErrorMessage": "Last Name is required",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": []
+          },
+          {
+            "Key": "DateOfBirth",
+            "Label": "Date of Birth",
+            "EditPartialViewName": "FormItemDOBPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "dp",
+            "IconCssClass": "glyphicon glyphicon-calendar",
+            "IconOnLeft": "true",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "false",
+            "EditableByUserOnProfile": "false",
+            "VisibleOnAdminUserEdit": "false",
+            "EditableOnAdminUserEdit": "false",
+            "MaxLength": "30",
+            "MaxLengthErrorMessage": "Date of Birth has a max length of 30 characters",
+            "Required": "true",
+            "RequiredErrorMessage": "Date of Birth is required yo!",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": []
+          },
+          {
+            "Key": "MembershipNo",
+            "Label": "Membership Number",
+            "EditPartialViewName": "FormItemInputPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "memno",
+            "IconCssClass": "glyphicon glyphicon-flash",
+            "IconOnLeft": "true",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "false",
+            "EditableByUserOnProfile": "true",
+            "VisibleOnAdminUserEdit": "true",
+            "EditableOnAdminUserEdit": "true",
+            "MaxLength": "30",
+            "MaxLengthErrorMessage": "Membership Number has a max length of 30 characters",
+            "Required": "true",
+            "RequiredErrorMessage": "Membership Number is required",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": []
+          },
+          {
+            "Key": "FavColor",
+            "Label": "Favorite Color",
+            "EditPartialViewName": "FormItemSelectPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "favcolor",
+            "IconCssClass": "glyphicon glyphicon-eye-open",
+            "IconOnLeft": "true",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "true",
+            "EditableByUserOnProfile": "true",
+            "VisibleOnAdminUserEdit": "true",
+            "EditableOnAdminUserEdit": "true",
+            "Required": "true",
+            "RequiredErrorMessage": "Favorite Color is required",
+            "MaxLength": "-1",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": [
+              {
+                "Text": "Blue",
+                "Value": "Blue"
+              },
+              {
+                "Text": "Red",
+                "Value": "Red",
+                "Selected": "true"
+              },
+              {
+                "Text": "Green",
+                "Value": "Green"
+              }
+            ]
+          },
+          {
+            "Key": "AuthorBio",
+            "Label": "Short Bio",
+            "EditPartialViewName": "FormItemTextAreaPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "bio",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "true",
+            "EditableByUserOnProfile": "true",
+            "VisibleOnAdminUserEdit": "true",
+            "EditableOnAdminUserEdit": "true",
+            "Required": "true",
+            "RequiredErrorMessage": "Bio is required yo",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": []
+          }
+        ]
+      }
+    ]
+  }
+
+}
