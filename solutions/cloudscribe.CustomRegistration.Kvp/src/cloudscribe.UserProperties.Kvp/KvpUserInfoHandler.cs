@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace cloudscribe.UserProperties.Web.Kvp
+namespace cloudscribe.UserProperties.Kvp
 {
     public class KvpUserInfoHandler : IHandleCustomUserInfo
     {

@@ -3,9 +3,8 @@
 // Author:					Joe Audette
 // Created:					2017-07-10
 // Last Modified:			2017-07-11
-// 
+//
 
-using cloudscribe.Core.Identity;
 using cloudscribe.Core.Models;
 using cloudscribe.Core.Web.ExtensionPoints;
 using cloudscribe.Core.Web.ViewModels.Account;
@@ -14,18 +13,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace cloudscribe.UserProperties.Web.Kvp
+namespace cloudscribe.UserProperties.Kvp
 {
-    public class KvpRegistrationHandler : IHandleCustomRegistration
+    public class KvpUserInfoAdminHandler : IHandleCustomUserInfoAdmin
     {
-        public KvpRegistrationHandler(
+        public KvpUserInfoAdminHandler(
             IProfileOptionsResolver customPropsResolver,
             IUserPropertyService userPropertyService,
             IUserPropertyValidator userPropertyValidator,
-            ILogger<KvpRegistrationHandler> logger
+            ILogger<KvpUserInfoAdminHandler> logger
             )
         {
             _customPropsResolver = customPropsResolver;
@@ -42,45 +42,60 @@ namespace cloudscribe.UserProperties.Web.Kvp
 
         private async Task EnsureProps()
         {
-            if (_props == null)
+            if(_props == null)
             {
                 _props = await _customPropsResolver.GetProfileProps();
             }
         }
 
-        public virtual Task<string> GetRegisterViewName(ISiteContext site, HttpContext httpContext)
+        public virtual Task<string> GetUserEditViewName(
+            ISiteContext site,
+            HttpContext httpContext)
         {
-            return Task.FromResult("Register"); // this is just returning the default view name.
+            return Task.FromResult("UserEdit"); // this is just returning the default view name.
         }
 
-        public virtual async Task HandleRegisterGet(
+        public virtual async Task HandleUserEditGet(
             ISiteContext site,
-            RegisterViewModel viewModel,
+            EditUserViewModel viewModel,
             HttpContext httpContext,
             ViewDataDictionary viewData,
             CancellationToken cancellationToken = default(CancellationToken)
             )
         {
             await EnsureProps();
-            // if any configured properties have default values add them to viewData
-            // to pass them to the view
-            foreach (var p in _props.Properties)
+            // add user props to viewData to pass them to the view
+            var userProps = await _userPropertyService.FetchByUser(site.Id.ToString(), viewModel.UserId.ToString());
+            SiteUser siteUser = null;
+            if (_userPropertyService.HasAnyNativeProps(_props.Properties))
             {
-                if(p.VisibleOnRegistration)
+                siteUser = await _userPropertyService.GetUser(viewModel.UserId.ToString());
+            }
+
+            foreach (var p in _props.Properties)
+            {   
+                if(p.EditableOnAdminUserEdit)
                 {
-                    if(!string.IsNullOrWhiteSpace(p.DefaultValue))
+                    if (_userPropertyService.IsNativeUserProperty(p.Key))
                     {
-                        viewData[p.Key] = p.DefaultValue;
+                        viewData[p.Key] = _userPropertyService.GetNativeUserProperty(siteUser, p.Key);
+                    }
+                    else
+                    {
+                        var found = userProps.Where(x => x.Key == p.Key).FirstOrDefault();
+                        if (found != null)
+                        {
+                            viewData[p.Key] = found.Value;
+                        }
                     }
                 }
+                           
             }
-            
-            
         }
 
-        public virtual async Task<bool> HandleRegisterValidation(
+        public virtual async Task<bool> HandleUserEditValidation(
             ISiteContext site,
-            RegisterViewModel viewModel,
+            EditUserViewModel viewModel,
             HttpContext httpContext,
             ViewDataDictionary viewData,
             ModelStateDictionary modelState,
@@ -92,10 +107,10 @@ namespace cloudscribe.UserProperties.Web.Kvp
 
             foreach (var p in _props.Properties)
             {
-                if (p.VisibleOnRegistration)
+                if (p.EditableOnAdminUserEdit)
                 {
                     var postedValue = httpContext.Request.Form[p.Key];
-                    if(_userPropertyValidator.IsValid(p, postedValue, modelState))
+                    if (_userPropertyValidator.IsValid(p, postedValue, modelState))
                     {
                         // if valid keep the field populated in case some other model validation failed and the form is re-displayed
                         viewData[p.Key] = postedValue;
@@ -104,18 +119,18 @@ namespace cloudscribe.UserProperties.Web.Kvp
                     {
                         result = false;
                     }
-                    
                 }
+                
             }
-            
+
             return result;
         }
 
-        public virtual async Task HandleRegisterPostSuccess(
+        public virtual async Task HandleUserEditPostSuccess(
             ISiteContext site,
-            RegisterViewModel viewModel,
+            ISiteUser siteUser,
+            EditUserViewModel viewModel,
             HttpContext httpContext,
-            UserLoginResult loginResult,
             CancellationToken cancellationToken = default(CancellationToken)
             )
         {
@@ -123,45 +138,30 @@ namespace cloudscribe.UserProperties.Web.Kvp
             // we "could" re-validate here but
             // the method above gets called just before this in the same postback
             // so we know there were no validation errors or this method would not be invoked
-            SiteUser siteUser = null;
-            if(_userPropertyService.HasAnyNativeProps(_props.Properties))
-            {
-                siteUser = await _userPropertyService.GetUser(loginResult.User.Id.ToString());
-            }
-            if (loginResult.User != null)
+            if (siteUser != null)
             {
                 foreach (var p in _props.Properties)
                 {
-                    if (p.VisibleOnRegistration)
+                    var postedValue = httpContext.Request.Form[p.Key];
+                    if (_userPropertyService.IsNativeUserProperty(p.Key))
                     {
-
-                        var postedValue = httpContext.Request.Form[p.Key];
-                        if(_userPropertyService.IsNativeUserProperty(p.Key))
-                        {
-                            await _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
-                        }
-                        else
-                        {
-                            // persist to kvp storage
-                            await _userPropertyService.CreateOrUpdate(
-                                site.Id.ToString(),
-                                loginResult.User.Id.ToString(),
-                                p.Key,
-                                postedValue);
-                        }  
+                        await _userPropertyService.UpdateNativeUserProperty(siteUser as SiteUser, p.Key, postedValue);
                     }
+                    else
+                    {
+                        // persist to kvp storage
+                        await _userPropertyService.CreateOrUpdate(
+                            site.Id.ToString(),
+                            siteUser.Id.ToString(),
+                            p.Key,
+                            postedValue);
+                    }            
                 }
             }
             else
             {
-                _log.LogError("user was null in HandleRegisterPostSuccess, unable to update user with custom data");
+                _log.LogError("user was null in HandleUserInfoPostSuccess, unable to update user with custom data");
             }
-
-           
         }
-
-        
-
-
     }
 }

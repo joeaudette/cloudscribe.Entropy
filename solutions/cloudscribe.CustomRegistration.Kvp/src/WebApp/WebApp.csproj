@@ -72,7 +72,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\cloudscribe.Kvp.Storage.NoDb\cloudscribe.Kvp.Storage.NoDb.csproj" />
-    <ProjectReference Include="..\cloudscribe.UserProperties.Web.Kvp\cloudscribe.UserProperties.Web.Kvp.csproj" />
+    <ProjectReference Include="..\cloudscribe.UserProperties.Kvp\cloudscribe.UserProperties.Kvp.csproj" />
     <ProjectReference Include="..\cloudscribe.UserProperties\cloudscribe.UserProperties.csproj" />
   </ItemGroup>
 
