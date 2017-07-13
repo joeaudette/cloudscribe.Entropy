@@ -3,7 +3,7 @@
   "ProfilePropertySetContainer": {
     "PropertySets": [
       {
-        "TenantId": "2bf9bd2b-3016-40b9-b9ce-d2546086342c",
+        "TenantId": "*",
         "Properties": [
           {
             "Key": "FirstName",
@@ -81,8 +81,8 @@
             "IconCssClass": "glyphicon glyphicon-flash",
             "IconOnLeft": "true",
             "VisibleOnRegistration": "true",
-            "VisibleToUserOnProfile": "false",
-            "EditableByUserOnProfile": "true",
+            "VisibleToUserOnProfile": "true",
+            "EditableByUserOnProfile": "false",
             "VisibleOnAdminUserEdit": "true",
             "EditableOnAdminUserEdit": "true",
             "MaxLength": "30",
@@ -141,7 +141,7 @@
             "VisibleOnAdminUserEdit": "true",
             "EditableOnAdminUserEdit": "true",
             "Required": "true",
-            "RequiredErrorMessage": "Bio is required yo",
+            "RequiredErrorMessage": "Bio is required",
             "RegexValidationExpression": "",
             "RegexErrorMessage": "",
             "Options": []

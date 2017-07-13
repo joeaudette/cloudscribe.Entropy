@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:					Joe Audette
 // Created:					2017-07-10
-// Last Modified:			2017-07-11
+// Last Modified:			2017-07-13
 //
 
 using cloudscribe.Core.Models;
@@ -105,7 +105,7 @@ namespace cloudscribe.UserProperties.Kvp
 
             foreach (var p in _props.Properties)
             {
-                if (p.VisibleToUserOnProfile)
+                if (p.EditableByUserOnProfile)
                 {
                     var postedValue = httpContext.Request.Form[p.Key];
                     if (_userPropertyValidator.IsValid(p, postedValue, modelState))
@@ -145,7 +145,7 @@ namespace cloudscribe.UserProperties.Kvp
                         var postedValue = httpContext.Request.Form[p.Key];
                         if (_userPropertyService.IsNativeUserProperty(p.Key))
                         {
-                            await _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
+                            _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
                         }
                         else
                         {

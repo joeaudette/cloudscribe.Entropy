@@ -130,6 +130,7 @@ namespace cloudscribe.UserProperties.Kvp
             }
             if (loginResult.User != null)
             {
+                bool didUpdateNativeProps = false;
                 foreach (var p in _props.Properties)
                 {
                     if (p.VisibleOnRegistration)
@@ -138,7 +139,8 @@ namespace cloudscribe.UserProperties.Kvp
                         var postedValue = httpContext.Request.Form[p.Key];
                         if(_userPropertyService.IsNativeUserProperty(p.Key))
                         {
-                            await _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
+                            _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
+                            didUpdateNativeProps = true;
                         }
                         else
                         {
@@ -150,6 +152,11 @@ namespace cloudscribe.UserProperties.Kvp
                                 postedValue);
                         }  
                     }
+                }
+
+                if(didUpdateNativeProps)
+                {
+                    await _userPropertyService.SaveUser(siteUser);
                 }
             }
             else
