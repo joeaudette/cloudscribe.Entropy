@@ -63,7 +63,7 @@ namespace cloudscribe.UserProperties.Kvp
             return false;
         }
 
-        public string GetNativeUserProperty(SiteUser siteUser, string key)
+        public string GetNativeUserProperty(ISiteUser siteUser, string key)
         {
             switch (key)
             {
@@ -95,7 +95,7 @@ namespace cloudscribe.UserProperties.Kvp
             return null;
         }
 
-        public async Task UpdateNativeUserProperty(SiteUser siteUser, string key, string value)
+        public void UpdateNativeUserProperty(ISiteUser siteUser, string key, string value)
         {
             switch (key)
             {
@@ -132,7 +132,16 @@ namespace cloudscribe.UserProperties.Kvp
 
 
             }
-            await _userManager.UpdateAsync(siteUser);
+            
+        }
+
+        public async Task SaveUser(SiteUser siteUser)
+        {
+            var result = await _userManager.UpdateAsync(siteUser);
+            if (!result.Succeeded)
+            {
+                //TODO: log it
+            }
         }
 
         public async Task<List<UserProperty>> FetchByUser(string siteId, string userId)

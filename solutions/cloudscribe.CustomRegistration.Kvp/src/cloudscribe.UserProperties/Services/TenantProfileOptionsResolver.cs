@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:					Joe Audette
 // Created:					2017-07-08
-// Last Modified:			2017-07-11
+// Last Modified:			2017-07-13
 // 
 
 using cloudscribe.Core.Models;
@@ -34,6 +34,11 @@ namespace cloudscribe.UserProperties.Services
             foreach(var s in container.PropertySets)
             {
                 if(s.TenantId == currentSite.Id.ToString()) { return Task.FromResult(s); }
+            }
+
+            foreach (var s in container.PropertySets)
+            {
+                if (s.TenantId =="*") { return Task.FromResult(s); }
             }
 
             var result = new UserPropertySet();

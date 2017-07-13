@@ -9,8 +9,9 @@ namespace cloudscribe.UserProperties.Models
         Task<SiteUser> GetUser(string userId);
         bool IsNativeUserProperty(string key);
         bool HasAnyNativeProps(List<UserPropertyDefinition> props);
-        string GetNativeUserProperty(SiteUser siteUser, string key);
-        Task UpdateNativeUserProperty(SiteUser siteUser, string key, string value);
+        string GetNativeUserProperty(ISiteUser siteUser, string key);
+        void UpdateNativeUserProperty(ISiteUser siteUser, string key, string value);
+        Task SaveUser(SiteUser siteUser);
         Task<List<UserProperty>> FetchByUser(string siteId, string userId);
         Task CreateOrUpdate(string siteId, string userId, string key, string value);
     }
