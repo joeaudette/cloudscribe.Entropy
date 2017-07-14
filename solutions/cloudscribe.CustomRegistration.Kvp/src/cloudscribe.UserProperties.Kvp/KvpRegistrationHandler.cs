@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:					Joe Audette
 // Created:					2017-07-10
-// Last Modified:			2017-07-11
+// Last Modified:			2017-07-14
 // 
 
 using cloudscribe.Core.Identity;
@@ -111,6 +111,29 @@ namespace cloudscribe.UserProperties.Kvp
             return result;
         }
 
+        public Task ProcessUserBeforeCreate(ISiteUser siteUser, HttpContext httpContext)
+        {
+            if (siteUser != null)
+            {
+                foreach (var p in _props.Properties)
+                {
+                    if (p.VisibleOnRegistration)
+                    {
+                        if (_userPropertyService.IsNativeUserProperty(p.Key))
+                        {
+                            var postedValue = httpContext.Request.Form[p.Key];
+                            _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
+                        }
+                       
+                    }
+                }
+
+                // we don't need to save the user here it is saved after this method
+            }
+
+            return Task.FromResult(0);
+        }
+
         public virtual async Task HandleRegisterPostSuccess(
             ISiteContext site,
             RegisterViewModel viewModel,
@@ -130,20 +153,13 @@ namespace cloudscribe.UserProperties.Kvp
             }
             if (loginResult.User != null)
             {
-                bool didUpdateNativeProps = false;
                 foreach (var p in _props.Properties)
                 {
                     if (p.VisibleOnRegistration)
                     {
-
-                        var postedValue = httpContext.Request.Form[p.Key];
-                        if(_userPropertyService.IsNativeUserProperty(p.Key))
+                        if(!_userPropertyService.IsNativeUserProperty(p.Key))
                         {
-                            _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
-                            didUpdateNativeProps = true;
-                        }
-                        else
-                        {
+                            var postedValue = httpContext.Request.Form[p.Key];
                             // persist to kvp storage
                             await _userPropertyService.CreateOrUpdate(
                                 site.Id.ToString(),
@@ -153,22 +169,14 @@ namespace cloudscribe.UserProperties.Kvp
                         }  
                     }
                 }
-
-                if(didUpdateNativeProps)
-                {
-                    await _userPropertyService.SaveUser(siteUser);
-                }
+    
             }
             else
             {
                 _log.LogError("user was null in HandleRegisterPostSuccess, unable to update user with custom data");
             }
-
-           
+   
         }
-
-        
-
 
     }
 }
