@@ -135,14 +135,14 @@ namespace cloudscribe.UserProperties.Kvp
             
         }
 
-        public async Task SaveUser(SiteUser siteUser)
-        {
-            var result = await _userManager.UpdateAsync(siteUser);
-            if (!result.Succeeded)
-            {
-                //TODO: log it
-            }
-        }
+        //public async Task SaveUser(SiteUser siteUser)
+        //{
+        //    var result = await _userManager.UpdateAsync(siteUser);
+        //    if (!result.Succeeded)
+        //    {
+        //        //TODO: log it
+        //    }
+        //}
 
         public async Task<List<UserProperty>> FetchByUser(string siteId, string userId)
         {

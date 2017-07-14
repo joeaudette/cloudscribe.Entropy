@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Author:					Joe Audette
 // Created:					2017-07-10
-// Last Modified:			2017-07-13
+// Last Modified:			2017-07-14
 //
 
 using cloudscribe.Core.Models;
@@ -139,10 +139,7 @@ namespace cloudscribe.UserProperties.Kvp
             // the method above gets called just before this in the same postback
             // so we know there were no validation errors or this method would not be invoked
             if (siteUser != null)
-            {
-                //var user = SiteUser.FromISiteUser(siteUser);
-                //bool didUpdateNativeProps = false;
-
+            {  
                 foreach (var p in _props.Properties)
                 {
                     if(p.EditableOnAdminUserEdit)
@@ -150,9 +147,7 @@ namespace cloudscribe.UserProperties.Kvp
                         var postedValue = httpContext.Request.Form[p.Key];
                         if (_userPropertyService.IsNativeUserProperty(p.Key))
                         {
-
                             _userPropertyService.UpdateNativeUserProperty(siteUser, p.Key, postedValue);
-                           // didUpdateNativeProps = true;
                         }
                         else
                         {
@@ -166,10 +161,7 @@ namespace cloudscribe.UserProperties.Kvp
                     }
                        
                 }
-                //if(didUpdateNativeProps)
-                //{
-                //    await _userPropertyService.SaveUser(user);
-                //}
+               
             }
             else
             {

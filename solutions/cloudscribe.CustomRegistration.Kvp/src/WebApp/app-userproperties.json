@@ -147,7 +147,37 @@
             "Options": []
           }
         ]
+      },
+      {
+        "TenantId": "",
+        "Properties": [
+          {
+            "Key": "NickName",
+            "Label": "Nickname",
+            "EditPartialViewName": "FormItemInputPartial",
+            "Tooltip": "",
+            "DefaultValue": "",
+            "CssClass": "firstname",
+            "IconCssClass": "glyphicon glyphicon-user",
+            "IconOnLeft": "true",
+            "VisibleOnRegistration": "true",
+            "VisibleToUserOnProfile": "false",
+            "EditableByUserOnProfile": "false",
+            "VisibleOnAdminUserEdit": "false",
+            "EditableOnAdminUserEdit": "false",
+            "MaxLength": "100",
+            "MaxLengthErrorMessage": "First Name has a max length of 100 characters",
+            "Required": "true",
+            "RequiredErrorMessage": "First Name is required",
+            "RegexValidationExpression": "",
+            "RegexErrorMessage": "",
+            "Options": []
+          }
+        ]
       }
+      
+
+
     ]
   }
 
