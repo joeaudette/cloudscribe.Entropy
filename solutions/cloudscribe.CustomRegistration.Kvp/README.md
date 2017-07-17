@@ -16,7 +16,7 @@ One of my clients had multiple upcoming projects that need custom registration f
 
 ![esdm logo](https://www.cloudscribe.com/media/images/esdm-banner.png)
 
-The code in this solution was developed under sponsored open source development from [exeGesIS Spatial Data Management](https://www.esdm.co.uk/)
+The code in this solution was developed under sponsored open source development with funding provided by [exeGesIS Spatial Data Management](https://www.esdm.co.uk/)
 
 If you are interested in sponsoring additional open source features for the cloudscribe ecosystem, please [contact me](https://www.cloudscribe.com/contact)
 
