@@ -1,6 +1,6 @@
 # Custom Registration fields per tenant
 
-One of my client projects needs custom registration fields. The goal here is to make something reusable and configurable so that per tenant there can be custom registration fields. This will be a common requirement for many of my projects and I suspect it will be for many people.
+One of my clients had multiple upcoming projects that need custom registration fields. The goal here was to make something reusable and configurable so that per tenant there can be easily configured custom registration fields. 
 
 ### The solution provides the following
 
@@ -12,9 +12,16 @@ One of my client projects needs custom registration fields. The goal here is to 
 
 4. Custom implementations of [IHandleCustomRegistration](https://github.com/joeaudette/cloudscribe.Entropy/blob/master/solutions/cloudscribe.CustomRegistration.Kvp/src/cloudscribe.UserProperties.Web.Kvp/KvpRegistrationHandler.cs), [IHandleCustomUserInfo](https://github.com/joeaudette/cloudscribe.Entropy/blob/master/solutions/cloudscribe.CustomRegistration.Kvp/src/cloudscribe.UserProperties.Web.Kvp/KvpUserInfoHandler.cs), and [IHandleCustomUserInfoAdmin](https://github.com/joeaudette/cloudscribe.Entropy/blob/master/solutions/cloudscribe.CustomRegistration.Kvp/src/cloudscribe.UserProperties.Web.Kvp/KvpUserInfoAdminHandler.cs) interfaces from cloudscribe Core process the additional form fields
 
-### TODO:
+### Credits
 
-implement EFCore storage
+![esdm logo](https://www.cloudscribe.com/media/images/esdm-banner.png)
+
+The code in this solution was developed under sponsored open source development from [exeGesIS Spatial Data Management](https://www.esdm.co.uk/)
+
+If you are interested in sponsoring additional open source features for the cloudscribe ecosystem, please [contact me](https://www.cloudscribe.com/contact)
+
+See the [complete list of cloudscribe libraries](https://www.cloudscribe.com/docs/complete-list-of-cloudscribe-libraries) on [cloudscribe.com](https://www.cloudscribe.com/)
+
 
 [![Join the chat at https://gitter.im/joeaudette/cloudscribe](https://badges.gitter.im/joeaudette/cloudscribe.svg)](https://gitter.im/joeaudette/cloudscribe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
