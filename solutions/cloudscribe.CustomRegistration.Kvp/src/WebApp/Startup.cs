@@ -65,7 +65,7 @@ namespace WebApp
 
             services.AddOptions();
 
-            services.AddCloudscribeKvpNoDbStorage();
+            //services.AddCloudscribeKvpNoDbStorage();
             services.AddCloudscribeKvpUserProperties();
 
             //services.AddCloudscribeCoreNoDbStorage();
@@ -304,7 +304,8 @@ namespace WebApp
                 case "NoDb":
                     services.AddCloudscribeCoreNoDbStorage();
                     services.AddCloudscribeLoggingNoDbStorage(Configuration);
-                    
+                    services.AddCloudscribeKvpNoDbStorage();
+
                     break;
 
                 case "ef":
