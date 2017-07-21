@@ -9,8 +9,9 @@ install:
 init:
   - git config --global core.autocrlf true
 build_script:
-  - dotnet restore ~/solutions/cloudscribe.CustomRegistration.Kvp/cloudscribe.CustomRegistration.Kvp.sln
-  - dotnet build ~/solutions/cloudscribe.CustomRegistration.Kvp/cloudscribe.CustomRegistration.Kvp.sln -c Release
+  - cd solutions\cloudscribe.CustomRegistration.Kvp
+  - dotnet restore
+  - dotnet build -c Release
 test: off
 
 
