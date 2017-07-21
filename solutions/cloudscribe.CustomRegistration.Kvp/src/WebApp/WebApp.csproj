@@ -4,10 +4,6 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
-  </PropertyGroup>
-
   <ItemGroup>
     <None Update="wwwroot\**\*;navigation.xml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
