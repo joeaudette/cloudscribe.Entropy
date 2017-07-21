@@ -12,7 +12,7 @@ os:
   - osx
 osx_image: xcode8.3
 script:
-  - cd /solutions/cloudscribe.CustomRegistration.Kvp
+  - cd solutions/cloudscribe.CustomRegistration.Kvp
   - if test "$TRAVIS_OS_NAME" == "linux"; then dotnet restore; fi
   - if test "$TRAVIS_OS_NAME" == "osx"; then dotnet restore --disable-parallel; fi
   - dotnet build -c Release
