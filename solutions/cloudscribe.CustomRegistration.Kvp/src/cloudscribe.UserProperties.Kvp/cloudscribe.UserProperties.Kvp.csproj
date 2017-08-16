@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <Description>Configurable custom user properties for cloudscribe core using per tenant or global configuration based custom proprties with key/value storage</Description>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <Authors>Joe Audette</Authors>
-    <TargetFrameworks>netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageTags>cloudscribe;userprofile;customization</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/joeaudette/cloudscribe/master/cloudscribe-icon-32.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/joeaudette/cloudscribe.Entropy/tree/master/solutions/cloudscribe.CustomRegistration.Kvp</PackageProjectUrl>
@@ -15,15 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="cloudscribe.Core.Models" Version="1.2.*" />
-    <PackageReference Include="cloudscribe.Core.Identity" Version="1.1.*" />
-    <PackageReference Include="cloudscribe.Core.Web" Version="1.2.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.*" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="1.1.*" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="1.1.*" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.*" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.*" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.*" />
+    <PackageReference Include="cloudscribe.Core.Models" Version="2.0.*" />
+    <PackageReference Include="cloudscribe.Core.Identity" Version="2.0.*" />
+    <PackageReference Include="cloudscribe.Core.Web" Version="2.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.*" />
 
   </ItemGroup>
 
