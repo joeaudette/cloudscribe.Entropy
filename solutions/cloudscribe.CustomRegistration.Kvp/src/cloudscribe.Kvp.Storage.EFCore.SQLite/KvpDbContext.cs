@@ -1,9 +1,8 @@
 ﻿using cloudscribe.Kvp.Models;
 using cloudscribe.Kvp.Storage.EFCore.Common;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace cloudscribe.Kvp.Storage.EFCore.pgsql
+namespace cloudscribe.Kvp.Storage.EFCore.SQLite
 {
     public class KvpDbContext : KvpDbContextBase, IKvpDbContext
     {
@@ -12,16 +11,14 @@ namespace cloudscribe.Kvp.Storage.EFCore.pgsql
 
         }
 
+        //protected KvpDbContext() { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            IKvpTableNames tableNames = this.GetService<IKvpTableNames>();
-            if (tableNames == null)
-            {
-                tableNames = new KvpTableNames();
-            }
-
+            
+            var tableNames = new KvpTableNames();
+            
             modelBuilder.Entity<KvpItem>(entity =>
             {
                 entity.HasKey(p => p.Id);
