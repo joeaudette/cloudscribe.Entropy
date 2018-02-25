@@ -72,6 +72,8 @@ namespace cloudscribe.UserProperties.Kvp
                    
                 case "LastName":
                     return siteUser.LastName;
+                case "DisplayName":
+                    return siteUser.DisplayName;
                 case "DateOfBirth":
                     if(siteUser.DateOfBirth.HasValue)
                     {
@@ -104,6 +106,9 @@ namespace cloudscribe.UserProperties.Kvp
                     break;
                 case "LastName":
                     siteUser.LastName = value;
+                    break;
+                case "DisplayName":
+                    siteUser.DisplayName = value;
                     break;
                 case "DateOfBirth":
                     DateTime dob;
